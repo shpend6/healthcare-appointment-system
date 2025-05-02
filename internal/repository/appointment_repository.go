@@ -18,9 +18,9 @@ func NewAppointmentRepository() *AppointmentRepository {
 }
 
 // GetAll retrieves all appointments
-func (r *AppointmentRepository) GetAll() ([]models.Appointment, error) {
+func (r *AppointmentRepository) GetAllPaginated(limit, offset int) ([]models.Appointment, error) {
 	var appts []models.Appointment
-	if err := r.DB.Find(&appts).Error; err != nil {
+	if err := r.DB.Limit(limit).Offset(offset).Find(&appts).Error; err != nil {
 		return nil, err
 	}
 	return appts, nil

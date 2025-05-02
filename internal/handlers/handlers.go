@@ -56,7 +56,8 @@ func (h *Handler) GetPatientByID(c *gin.Context) {
 
 // GetAppointments retrieves all appointments
 func (h *Handler) GetAppointments(c *gin.Context) {
-	appts, err := h.AppointmentRepo.GetAll()
+	limit, offset := getPaginationParams(c)
+	appts, err := h.AppointmentRepo.GetAllPaginated(limit, offset)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
