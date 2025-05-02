@@ -8,7 +8,7 @@ import (
 
 type Base struct {
 	ID        int
-	CreatedAT time.Time
+	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt
 }

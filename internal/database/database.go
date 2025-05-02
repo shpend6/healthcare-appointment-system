@@ -1,20 +1,28 @@
 package database
 
 import (
-	"healthcare-appointment-system/internal/models"
+	"log"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+
+	"healthcare-appointment-system/internal/models"
 )
 
 var DB *gorm.DB
 
-func Connect() {
+func InitDB() {
 	var err error
-	DB, err = gorm.Open(sqlite.Open("appointments.db"), &gorm.Config{})
+	DB, err = gorm.Open(sqlite.Open("healthcare.db"), &gorm.Config{})
 	if err != nil {
-		panic("failed to connect database")
+		log.Fatalf("failed to connect to database: %v", err)
 	}
 
-	DB.AutoMigrate(&models.User{}, &models.Appointment{})
+	err = DB.AutoMigrate(
+		&models.Patient{},
+		&models.Appointment{},
+	)
+	if err != nil {
+		log.Fatalf("failed to migrate database schema: %v", err)
+	}
 }

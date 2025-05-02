@@ -3,16 +3,22 @@ package main
 import (
 	"healthcare-appointment-system/internal/database"
 	"healthcare-appointment-system/internal/handlers"
+	repositories "healthcare-appointment-system/internal/repository"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	database.Connect()
+	database.InitDB()
 
 	r := gin.Default()
 
-	handlers.SetupRoutes(r)
+	h := &handlers.Handler{
+		PatientRepo:     repositories.NewPatientRepository(),
+		AppointmentRepo: repositories.NewAppointmentRepository(),
+	}
+
+	handlers.SetupRoutes(r, h)
 
 	r.Run()
 }
