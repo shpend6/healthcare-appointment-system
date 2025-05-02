@@ -75,7 +75,7 @@ You can find the Postman collection for testing the API here:
 
 ### Patient Validation
 - `email`: Must be a valid email format
-- `gender`: Must be one of ["male", "female", "other"]
+- `gender`: Must be one of ["male", "female"]
 - `dateOfBirth`: Must be a valid date in the past
 
 ### Appointment Validation
